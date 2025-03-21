@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import StoreCard from "../components/StoreCard";
@@ -92,9 +93,10 @@ const Index = () => {
         <HeroSection onSearch={handleSearch} />
         
         {isLoading && (
-          <div className="container mx-auto px-4 py-16">
-            <Loader message="Searching for stores..." />
-          </div>
+          <Loader 
+            fullScreen 
+            message={`Searching for "${searchQuery}" in ${searchLocation || "all locations"}...`} 
+          />
         )}
 
         {error && !isLoading && (
