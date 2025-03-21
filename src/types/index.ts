@@ -19,3 +19,16 @@ export interface Product {
 export interface ProductsResponse {
   products: Product[];
 }
+
+export interface Category {
+  id: string;
+  name: string;
+  icon: string;
+  value: string;
+}
+
+export interface CountryOption {
+  name: string;
+  code: string;
+  flag: string;
+}
