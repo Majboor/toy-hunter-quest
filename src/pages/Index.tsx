@@ -31,7 +31,7 @@ const Index = () => {
     });
 
     try {
-      const data: SearchResponse = await searchStores(query, location);
+      const data: SearchResponse = await searchStores(query, location, 5);
       setSearchResults(data.results);
       
       if (data.results.length === 0) {

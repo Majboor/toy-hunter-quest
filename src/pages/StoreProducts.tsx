@@ -30,7 +30,7 @@ const StoreProducts = () => {
       try {
         setIsLoading(true);
         const decodedUrl = decodeURIComponent(storeUrl);
-        const data = await getStoreProducts(decodedUrl);
+        const data = await getStoreProducts(decodedUrl, 5);
         setProducts(data.products || []);
         
         if (!data.products || data.products.length === 0) {
