@@ -40,7 +40,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
               Discover the best
               <span className="relative whitespace-nowrap">
                 <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-700">
-                  {" "}Shopify stores{" "}
+                  {" "}Products{" "}
                 </span>
                 <svg
                   aria-hidden="true"
@@ -52,7 +52,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
                 </svg>
               </span>
               <br />
-              for your needs
+              for your store
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">
