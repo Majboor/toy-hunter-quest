@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Layout from "../components/Layout";
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
@@ -47,8 +48,25 @@ const StoreProducts = () => {
     fetchProducts();
   }, [storeUrl]);
   
+  // Generate page title and descriptions for meta tags
+  const pageTitle = storeDomain ? `Products from ${storeDomain} - ProductFinder` : "Store Products - ProductFinder";
+  const pageDescription = storeDomain 
+    ? `Discover ${products.length} products from ${storeDomain}. View detailed product information and visit the store.`
+    : "Browse products from top Shopify stores with ProductFinder.";
+  
   return (
     <Layout>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+      </Helmet>
+      
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <Link 

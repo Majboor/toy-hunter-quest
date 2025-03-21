@@ -1,5 +1,5 @@
-
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import Layout from "../components/Layout";
 import StoreCard from "../components/StoreCard";
 import Loader from "../components/Loader";
@@ -87,8 +87,27 @@ const Index = () => {
     );
   };
 
+  const pageTitle = searchQuery 
+    ? `${searchQuery} Stores${searchLocation ? ` in ${searchLocation}` : ''} - ProductFinder`
+    : "ProductFinder - Discover Top Shopify Stores and Products";
+  
+  const pageDescription = searchQuery
+    ? `Browse ${searchResults?.length || 0} Shopify stores selling ${searchQuery}${searchLocation ? ` in ${searchLocation}` : ''}. Find the perfect products for your needs.`
+    : "Discover the best Shopify stores and products with ProductFinder. Search by category and location to find exactly what you're looking for.";
+
   return (
     <Layout>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+      </Helmet>
+      
       <div className="flex flex-col">
         <HeroSection onSearch={handleSearch} />
         
