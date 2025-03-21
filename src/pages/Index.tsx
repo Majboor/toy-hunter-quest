@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import StoreCard from "../components/StoreCard";
@@ -10,7 +9,8 @@ import FeatureSection from "../components/FeatureSection";
 import TestimonialSection from "../components/TestimonialSection";
 import CTABanner from "../components/CTABanner";
 import { toast } from "sonner";
-import { Search } from "lucide-react";
+import { Search, Lock } from "lucide-react";
+import CTAButton from "../components/CTAButton";
 
 const Index = () => {
   const [searchResults, setSearchResults] = useState<StoreResult[] | null>(null);
@@ -48,6 +48,44 @@ const Index = () => {
     }
   };
 
+  const renderSearchResults = () => {
+    if (!searchResults || searchResults.length === 0) return null;
+
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-semibold">
+              Results for "{searchQuery}"
+              {searchLocation && <span className="text-muted-foreground"> in {searchLocation}</span>}
+            </h2>
+            <span className="text-sm text-muted-foreground">
+              {searchResults.length} store{searchResults.length !== 1 ? 's' : ''} found
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {searchResults.slice(0, 4).map((store, index) => (
+              <div key={store.link} className="animate-fade-up relative" style={{ animationDelay: `${index * 0.1}s` }}>
+                <StoreCard store={store} />
+                
+                {index >= 2 && (
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center rounded-xl border border-border">
+                    <Lock className="h-10 w-10 text-primary mb-3" />
+                    <p className="text-center font-medium mb-4">Premium Content</p>
+                    <CTAButton highlight>
+                      Unlock All Results
+                    </CTAButton>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Layout>
       <div className="flex flex-col">
@@ -68,27 +106,7 @@ const Index = () => {
         )}
 
         {searchResults && !isLoading && searchResults.length > 0 && (
-          <div className="container mx-auto px-4 py-16">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-semibold">
-                  Results for "{searchQuery}"
-                  {searchLocation && <span className="text-muted-foreground"> in {searchLocation}</span>}
-                </h2>
-                <span className="text-sm text-muted-foreground">
-                  {searchResults.length} store{searchResults.length !== 1 ? 's' : ''} found
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {searchResults.map((store, index) => (
-                  <div key={store.link} className="animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <StoreCard store={store} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          renderSearchResults()
         )}
         
         {!searchResults && !isLoading && !error && (
